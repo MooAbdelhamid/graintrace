@@ -1,0 +1,40 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Page-1" id="dV6sFsgEIyX-CcUq-y50">
+    <mxGraphModel dx="1094" dy="630" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="01rGyNu2nPAFHr5glRu8-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Model" vertex="1">
+          <mxGeometry height="40" width="120" x="360" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="01rGyNu2nPAFHr5glRu8-3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Model API" vertex="1">
+          <mxGeometry height="40" width="120" x="360" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="01rGyNu2nPAFHr5glRu8-4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="UI" vertex="1">
+          <mxGeometry height="40" width="120" x="680" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="01rGyNu2nPAFHr5glRu8-5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;div&gt;MetaData&lt;/div&gt;Database" vertex="1">
+          <mxGeometry height="40" width="120" x="40" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="01rGyNu2nPAFHr5glRu8-8" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Dataflow Manager&lt;div&gt;API&lt;/div&gt;" vertex="1">
+          <mxGeometry height="40" width="760" x="40" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="01rGyNu2nPAFHr5glRu8-9" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;div&gt;Validation&lt;/div&gt;PreProcessing" vertex="1">
+          <mxGeometry height="40" width="120" x="520" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="01rGyNu2nPAFHr5glRu8-10" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;div&gt;Vector&lt;/div&gt;Database" vertex="1">
+          <mxGeometry height="40" width="120" x="200" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="01rGyNu2nPAFHr5glRu8-15" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Pre API" vertex="1">
+          <mxGeometry height="40" width="120" x="520" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="01rGyNu2nPAFHr5glRu8-16" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Retrieval API" vertex="1">
+          <mxGeometry height="40" width="120" x="200" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="01rGyNu2nPAFHr5glRu8-17" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="MetaData API" vertex="1">
+          <mxGeometry height="40" width="120" x="40" y="240" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
