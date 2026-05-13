@@ -31,7 +31,7 @@ The project is designed using a modular service-oriented architecture to support
 
 # System Architecture
 
-<img src="docs/images/architecture.png" width="1000">
+<img src="https://github.com/MooAbdelhamid/graintrace/blob/main/docs/images/architecture_diagram.png" width="1000">
 
 The system consists of:
 - User Interface (UI)
