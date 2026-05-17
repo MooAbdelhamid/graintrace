@@ -35,7 +35,7 @@ Responsible for validating and preprocessing uploaded bow images to ensure consi
 # 5. Internal Components
 
 - API Layer
-- Validation Controller
+- Validation Model
 - Image Validator
 - Image Resizer
 - Image Normalizer
@@ -50,6 +50,7 @@ Responsible for validating and preprocessing uploaded bow images to ensure consi
 
 - OpenCV
 - Pillow
+- Pytorch
 - NumPy
 - Data Flow Manager
 

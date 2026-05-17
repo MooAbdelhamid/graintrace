@@ -86,7 +86,7 @@ The system shall:
 
 ## High-Level Architecture
 
-![System Architecture](images/architecture_diagram.png)
+![System Architecture](../images/architecture-diagram.png)
 
 ---
 
@@ -175,6 +175,7 @@ The system shall:
 ### Technology
 - FastAPI
 - OpenCV
+- Pytorch
 - Pillow
 
 ---
