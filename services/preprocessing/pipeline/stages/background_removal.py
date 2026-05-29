@@ -20,7 +20,8 @@ class BackgroundRemovalStage:
         out = self.remover.process(rgb, type="rgba")
 
         rgba = np.array(out)
-        alpha = rgba[:, :, 3]
+
+        alpha = rgba[:, :, 3].astype(np.uint8)
 
         # Apply alpha mask on original BGR image
         masked = cv2.bitwise_and(image, image, mask=alpha)
