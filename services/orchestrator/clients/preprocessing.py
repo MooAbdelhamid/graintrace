@@ -10,4 +10,5 @@ def preprocessing_call(content, data):
     files = {"file": (filename, content, content_type)}
 
     response = requests.post(PREPROCESS_URL, files=files)
+
     return response.content
