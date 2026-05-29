@@ -3,13 +3,17 @@
 Run with:
     streamlit run streamlit_app.py
 """
-import streamlit as st
 
-from lib.style import (
-    inject_global_css, page_header, card, section_badge,
-    ACCENT, MED, DARK, SAND, GREEN,
-)
+import streamlit as st
 from lib.mock_backend import list_bows
+from lib.style import (
+    DARK,
+    MED,
+    card,
+    inject_global_css,
+    page_header,
+    section_badge,
+)
 
 st.set_page_config(
     page_title="GrainTrace",
@@ -69,8 +73,9 @@ with col1:
             f"and head photos.</div>",
             unsafe_allow_html=True,
         )
-        if st.button("Open enrolment", key="enrol",
-                     use_container_width=True, type="primary"):
+        if st.button(
+            "Open enrolment", key="enrol", use_container_width=True, type="primary"
+        ):
             st.switch_page("pages/1_Enrol_Bow.py")
 
 with col2:
@@ -84,8 +89,12 @@ with col2:
             f"the database.</div>",
             unsafe_allow_html=True,
         )
-        if st.button("Open identification", key="identify",
-                     use_container_width=True, type="primary"):
+        if st.button(
+            "Open identification",
+            key="identify",
+            use_container_width=True,
+            type="primary",
+        ):
             st.switch_page("pages/2_Identify_Bow.py")
 
 with col3:
@@ -99,8 +108,9 @@ with col3:
             f"its photos.</div>",
             unsafe_allow_html=True,
         )
-        if st.button("Open database", key="browse",
-                     use_container_width=True, type="primary"):
+        if st.button(
+            "Open database", key="browse", use_container_width=True, type="primary"
+        ):
             st.switch_page("pages/3_Browse_Database.py")
 
 st.write("")
