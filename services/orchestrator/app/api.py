@@ -1,4 +1,5 @@
 import base64
+import uuid
 
 from clients.model import model_call
 from clients.preprocessing import preprocessing_call
@@ -6,6 +7,11 @@ from fastapi import APIRouter, File, UploadFile
 from fastapi.responses import JSONResponse
 
 router = APIRouter()
+
+
+def generate_bow_id() -> str:
+    # orchestrator assigns bow_id in format BOW-XXXXXX
+    return f"BOW-{uuid.uuid4().hex[:6].upper()}"
 
 
 @router.post("/verify")
