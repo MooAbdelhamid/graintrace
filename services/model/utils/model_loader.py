@@ -16,7 +16,7 @@ class ModelLoader:
         if self.load_type == "state_dict":
             model = self.model_class()
             checkpoint = torch.load(self.model_path, map_location=self.device)
-            model.load_state_dict(checkpoint)
+            model.load_state_dict(checkpoint["model_state_dict"])
 
         elif self.load_type == "full_model":
             model = torch.load(self.model_path, map_location=self.device)
@@ -27,11 +27,3 @@ class ModelLoader:
         model.to(self.device)
         model.eval()
         return model
-
-    @torch.no_grad()
-    def predict(self, tensor):
-        tensor = tensor.to(self.device)
-
-        output = self.model(tensor)
-
-        return output

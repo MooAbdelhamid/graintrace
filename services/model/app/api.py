@@ -1,8 +1,12 @@
-import numpy as np
 from fastapi import APIRouter, File, UploadFile
-from fastapi.responses import Response
+from pipeline.inferencepipeline import InferencePipeLine
+from pipeline.models_architectures import ConResNet50
+from utils.utils import decode_image
 
 router = APIRouter()
+
+model_path = ".\pipeline\model_weights\GrainTrace_Experiment_Hard_Weights.pth"
+inference_pipeline = InferencePipeLine(model_path, ConResNet50, "state_dict")
 
 
 @router.post("/infer")
@@ -10,8 +14,10 @@ async def pipeline(file: UploadFile = File(...)):
 
     content = await file.read()
 
-    embedding = np.random.rand(512).astype(np.float32)
+    image = decode_image(content)
 
-    raw_bytes = embedding.tobytes()
+    embeddings = inference_pipeline.infer(image)  # Tensor
 
-    return Response(content=raw_bytes)
+    embeddings = embeddings.cpu().numpy().tolist()
+
+    return {"embeddings": embeddings}
