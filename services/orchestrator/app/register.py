@@ -3,6 +3,7 @@ import uuid
 
 from clients.model import model_call
 from clients.preprocessing import preprocessing_call
+from clients.retrieval import retrieval_store
 from fastapi import APIRouter, File, Form, UploadFile
 from fastapi.responses import JSONResponse
 
@@ -36,7 +37,11 @@ async def register(
 
     embeddings = json.loads(embedding_bytes.decode("utf-8"))
 
-    embeddings = embeddings["embeddings"]
+    embeddings = embeddings["embeddings"][0]
+
+    result = retrieval_store(bow_id, embeddings)
+
+    print(result)
 
     response = {
         "bow_id": bow_id,

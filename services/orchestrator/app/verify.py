@@ -2,6 +2,7 @@ import json
 
 from clients.model import model_call
 from clients.preprocessing import preprocessing_call
+from clients.retrieval import retrieval_search
 from fastapi import APIRouter, File, UploadFile
 from fastapi.responses import JSONResponse
 
@@ -21,9 +22,11 @@ async def verify(file: UploadFile = File(...)):
 
     embeddings = json.loads(embedding_bytes.decode("utf-8"))
 
-    embeddings = embeddings["embeddings"]
+    embeddings = embeddings["embeddings"][0]
 
-    print(type(embeddings))
+    result = retrieval_search(embeddings)
+
+    print(result)
 
     response = {
         "embedding": embeddings,
