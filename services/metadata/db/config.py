@@ -21,6 +21,6 @@ def get_connection_string(database=None):
         "host": config.DB_HOST,
         "port": config.DB_PORT,
         "user": config.DB_USER,
-        "password": config.DB_PORT,
+        "password": config.DB_PASSWORD,
         "database": database or "postgres",
     }
