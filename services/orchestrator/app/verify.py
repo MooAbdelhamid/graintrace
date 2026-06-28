@@ -18,13 +18,23 @@ async def verify(file: UploadFile = File(...)):
 
     img = preprocessing_call(content, data)
 
+    print(type(img))
+
     embedding_bytes = model_call(img, data)
+
+    print(type(embedding_bytes))
 
     embeddings = json.loads(embedding_bytes.decode("utf-8"))
 
-    embeddings = embeddings["embeddings"][0]
+    print(type(embeddings))
+
+    embeddings = embeddings["embeddings"]
+
+    print(type(embeddings))
 
     result = retrieval_search(embeddings)
+
+    print(type(result))
 
     print(result)
 

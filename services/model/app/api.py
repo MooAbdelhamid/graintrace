@@ -18,6 +18,6 @@ async def pipeline(file: UploadFile = File(...)):
 
     embeddings = inference_pipeline.infer(image)  # Tensor
 
-    embeddings = embeddings.cpu().numpy().tolist()
+    embeddings = embeddings.cpu().squeeze().numpy().tolist()
 
     return {"embeddings": embeddings}

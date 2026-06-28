@@ -1,4 +1,3 @@
-import torch
 from config import config
 from qdrant_client import QdrantClient
 from qdrant_client.models import (
@@ -46,8 +45,6 @@ class QdrantManager:
             ],
         )
 
-    import torch
-
     def search(self, embedding: list[float], top_k: int = 5) -> list[dict]:
         results = self.client.query_points(
             collection_name=self.collection_name,
@@ -56,18 +53,6 @@ class QdrantManager:
             with_payload=True,
             with_vectors=True,  # needed for PyTorch check
         )
-
-        query = torch.tensor(embedding, dtype=torch.float32)
-
-        # --- PyTorch debug print ---
-        for point in results.points:
-            vec = torch.tensor(point.vector, dtype=torch.float32)
-            dist = torch.norm(query - vec, p=2).item()
-
-            print(
-                f"[PYTORCH DEBUG] bow_id={point.payload.get('bow_id')} "
-                f"euclidean_distance={dist:.6f}"
-            )
 
         return [
             {
