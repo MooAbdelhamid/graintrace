@@ -19,7 +19,7 @@ class SearchRequest(BaseModel):
 
 class SearchResult(BaseModel):
     bow_id: str  # use this to fetch metadata from postgres
-    score: float = Field(..., ge=0.0, le=1.0)  # cosine similarity 0..1
+    score: float = Field(...)
 
 
 class SearchResponse(BaseModel):
