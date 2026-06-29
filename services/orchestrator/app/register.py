@@ -1,6 +1,7 @@
 import json
 import uuid
 
+from clients.metadata import meta_store
 from clients.model import model_call
 from clients.preprocessing import preprocessing_call
 from clients.retrieval import retrieval_store
@@ -24,8 +25,7 @@ async def register(
 ):
     # input:  JPEG image + bow passport fields as form fields
     # output: EnrollResponse with bow_id, embedding_dim, status, passport
-    content = await file.read()
-    print(type(content))
+    content = await file.read()  # bytes
 
     data = {"filename": file.filename, "type": file.content_type}
 
@@ -33,30 +33,30 @@ async def register(
 
     img = preprocessing_call(content, data)  # bytes
 
-    print(type(img))
+    embedding_bytes = model_call(img, data)  # bytes
 
-    embedding_bytes = model_call(img, data)  # list[float]
+    embeddings = json.loads(embedding_bytes.decode("utf-8"))  # dict
 
-    print(type(embedding_bytes))
-
-    embeddings = json.loads(embedding_bytes.decode("utf-8"))
-
-    print(type(embeddings))
-
-    embeddings = embeddings["embeddings"]
-
-    print(type(embeddings))
+    embeddings = embeddings["embeddings"]  # list
 
     result = retrieval_store(bow_id, embeddings)
 
-    print(result)
+    print((result))
+
+    metadata = {"bow_id": bow_id, "maker": maker, "bow_kind": bow_kind, "owner": owner}
+
+    metadata_result = meta_store(**metadata)
+
+    print(metadata_result)
 
     response = {
+        "status": "success",
         "bow_id": bow_id,
-        "embeddings": embeddings,
         "maker": maker,
         "bow_kind": bow_kind,
         "owner": owner,
+        "embedding_dimension": len(embeddings),
+        "message": f"{bow_id} stored successfully",
     }
 
     return JSONResponse(response)
