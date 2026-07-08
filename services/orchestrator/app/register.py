@@ -25,13 +25,22 @@ async def register(
 ):
     # input:  JPEG image + bow passport fields as form fields
     # output: EnrollResponse with bow_id, embedding_dim, status, passport
+
+    print("Request IN")
+
     content = await file.read()  # bytes
 
     data = {"filename": file.filename, "type": file.content_type}
 
+    print("ID Generated")
+
     bow_id = generate_bow_id()  # orchestrator assigns the system ID
 
+    print("Calling Preprocessing")
+
     img = preprocessing_call(content, data)  # bytes
+
+    print("Calling Model")
 
     embedding_bytes = model_call(img, data)  # bytes
 
@@ -39,11 +48,15 @@ async def register(
 
     embeddings = embeddings["embeddings"]  # list
 
+    print("Calling Retrieval")
+
     result = retrieval_store(bow_id, embeddings)
 
     print((result))
 
     metadata = {"bow_id": bow_id, "maker": maker, "bow_kind": bow_kind, "owner": owner}
+
+    print("Calling Metadata")
 
     metadata_result = meta_store(**metadata)
 

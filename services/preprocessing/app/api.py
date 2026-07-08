@@ -13,4 +13,8 @@ async def pipeline(file: UploadFile = File(...)):
 
     result = imagepipeline.run(decode_image(content))
 
-    return Response(content=encode_image(result), media_type=file.content_type)
+    if result is not None:
+        return Response(content=encode_image(result), media_type=file.content_type)
+
+    else:
+        return None

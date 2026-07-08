@@ -13,13 +13,19 @@ router = APIRouter(prefix="/verify", tags=["verify"])
 @router.post("/")
 async def verify(file: UploadFile = File(...)):
 
+    print("Request IN")
+
     content = await file.read()  # bytes
 
     data = {"filename": file.filename, "type": file.content_type}
 
+    print("Calling Preprocessing")
+
     img = preprocessing_call(content, data)  # bytes
 
     print(type(img))
+
+    print("Calling Model")
 
     embedding_bytes = model_call(img, data)  # bytes
 
@@ -33,6 +39,8 @@ async def verify(file: UploadFile = File(...)):
 
     print(type(embeddings))
 
+    print("Calling Retrieval")
+
     result = retrieval_search(embeddings)  # dict
 
     print(type(result))
@@ -44,7 +52,7 @@ async def verify(file: UploadFile = File(...)):
     for item in result["results"]:
         bow_id = item["bow_id"]
         score = item["score"]
-
+        print("Calling Metadata")
         metadata = meta_search(bow_id)
 
         matches.append({"bow_id": bow_id, "score": score, **metadata})

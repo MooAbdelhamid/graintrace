@@ -13,12 +13,12 @@ class ModelLoader:
         )
 
     def load(self):
+
         if self.load_type == "state_dict":
             model = self.model_class()
             checkpoint = torch.load(self.model_path, map_location=self.device)
-            missing, unexpected = model.load_state_dict(
-                checkpoint["model_state_dict"], strict=True
-            )
+            model.load_state_dict(checkpoint)
+            # missing, unexpected = model.load_state_dict(checkpoint["model_state_dict"])
 
         elif self.load_type == "full_model":
             model = torch.load(self.model_path, map_location=self.device)
