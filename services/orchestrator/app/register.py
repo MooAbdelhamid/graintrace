@@ -5,8 +5,9 @@ from clients.metadata import meta_store
 from clients.model import model_call
 from clients.preprocessing import preprocessing_call
 from clients.retrieval import retrieval_store
-from fastapi import APIRouter, File, Form, UploadFile
+from fastapi import APIRouter, Depends, File, UploadFile
 from fastapi.responses import JSONResponse
+from models.bow import Bow
 
 router = APIRouter(prefix="/register", tags=["register"])
 
@@ -17,12 +18,7 @@ def generate_bow_id() -> str:
 
 
 @router.post("/")
-async def register(
-    file: UploadFile = File(...),
-    maker: str = Form(...),
-    bow_kind: str | None = Form(None),
-    owner: str | None = Form(None),
-):
+async def register(file: UploadFile = File(...), bow: Bow = Depends(Bow.as_form)):
     # input:  JPEG image + bow passport fields as form fields
     # output: EnrollResponse with bow_id, embedding_dim, status, passport
 
