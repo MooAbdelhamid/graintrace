@@ -21,9 +21,11 @@ async def verify(file: UploadFile = File(...)):
 
     print("Calling Preprocessing")
 
+    # add the condition to check
     img = preprocessing_call(content, data)  # bytes
 
-    print(type(img))
+    if img == b"null":
+        return {"status": "fail", "message": "invalid image provided"}
 
     print("Calling Model")
 
@@ -47,8 +49,10 @@ async def verify(file: UploadFile = File(...)):
 
     print(result)
 
+    return {"result": result}
     matches = []
 
+    # adjust response
     for item in result["results"]:
         bow_id = item["bow_id"]
         score = item["score"]

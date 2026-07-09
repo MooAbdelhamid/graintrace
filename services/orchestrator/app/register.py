@@ -26,6 +26,7 @@ async def register(file: UploadFile = File(...), bow: Bow = Depends(Bow.as_form)
 
     content = await file.read()  # bytes
 
+    # move into preprocessing call
     data = {"filename": file.filename, "type": file.content_type}
 
     print("ID Generated")
@@ -34,13 +35,19 @@ async def register(file: UploadFile = File(...), bow: Bow = Depends(Bow.as_form)
 
     print("Calling Preprocessing")
 
+    # add the if condition
     img = preprocessing_call(content, data)  # bytes
+
+    if img == b"null":
+        return {"status": "fail", "message": "invalid image provided"}
 
     print("Calling Model")
 
     embedding_bytes = model_call(img, data)  # bytes
 
     embeddings = json.loads(embedding_bytes.decode("utf-8"))  # dict
+
+    print(embeddings)
 
     embeddings = embeddings["embeddings"]  # list
 
@@ -50,6 +57,8 @@ async def register(file: UploadFile = File(...), bow: Bow = Depends(Bow.as_form)
 
     print((result))
 
+    return {"result": result}
+    # adjust all of this
     metadata = {"bow_id": bow_id, "maker": maker, "bow_kind": bow_kind, "owner": owner}
 
     print("Calling Metadata")
