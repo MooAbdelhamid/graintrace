@@ -1,14 +1,29 @@
+import json
+
 import requests
+from models.bow import Bow
 
 META_STORE_URL = "http://127.0.0.1:8005/store"
 META_SEARCH_URL = "http://127.0.0.1:8005/search"
 META_DELETE_URL = "http://127.0.0.1:8005/delete"
 
 
-def meta_store(bow_id: str, maker: str, bow_kind: str, owner: str):
-    payload = {"bow_id": bow_id, "maker": maker, "bow_kind": bow_kind, "owner": owner}
+def meta_store(
+    bow: Bow,
+    image_bytes: bytes,
+    filename: str = "bow.jpg",
+    content_type: str = "image/jpeg",
+):
+    files = {"file": (filename, image_bytes, content_type)}
 
-    response = requests.post(META_STORE_URL, params=payload)
+    data = bow.model_dump(exclude_none=True)
+
+    if data.get("materials"):
+        data["materials"] = json.dumps(data["materials"])
+    else:
+        data.pop("materials", None)
+
+    response = requests.post(META_STORE_URL, files=files, data=data)
 
     response.raise_for_status()
     return response.json()

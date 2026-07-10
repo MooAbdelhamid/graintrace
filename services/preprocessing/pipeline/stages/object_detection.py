@@ -28,7 +28,8 @@ class ObjectDetectionStage:
         result = results[0]
 
         if result.boxes is None or len(result.boxes) == 0:
-            print("Object not detected")
+            print("Bow was not detected - source: ObjectDetectionStage")
             return None
 
+        print("Bow was detected - source: ObjectDetectionStage")
         return result

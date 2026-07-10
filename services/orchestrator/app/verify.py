@@ -31,25 +31,14 @@ async def verify(file: UploadFile = File(...)):
 
     embedding_bytes = model_call(img, data)  # bytes
 
-    print(type(embedding_bytes))
-
     embeddings = json.loads(embedding_bytes.decode("utf-8"))  # dict
 
-    print(type(embeddings))
-
     embeddings = embeddings["embeddings"]  # list
-
-    print(type(embeddings))
 
     print("Calling Retrieval")
 
     result = retrieval_search(embeddings)  # dict
 
-    print(type(result))
-
-    print(result)
-
-    return {"result": result}
     matches = []
 
     # adjust response

@@ -34,7 +34,9 @@ class ImagePipeline:
         return image
 
     def run_1(self, image: np.ndarray) -> np.ndarray:
-
+        """
+        old pipeline
+        """
         image = self.bg_removal.run(image)
 
         image = self.grayscale.run(image)

@@ -32,6 +32,7 @@ async def register(file: UploadFile = File(...), bow: Bow = Depends(Bow.as_form)
     print("ID Generated")
 
     bow_id = generate_bow_id()  # orchestrator assigns the system ID
+    bow.id = bow_id
 
     print("Calling Preprocessing")
 
@@ -47,33 +48,27 @@ async def register(file: UploadFile = File(...), bow: Bow = Depends(Bow.as_form)
 
     embeddings = json.loads(embedding_bytes.decode("utf-8"))  # dict
 
-    print(embeddings)
-
     embeddings = embeddings["embeddings"]  # list
 
     print("Calling Retrieval")
 
     result = retrieval_store(bow_id, embeddings)
 
-    print((result))
-
-    return {"result": result}
-    # adjust all of this
-    metadata = {"bow_id": bow_id, "maker": maker, "bow_kind": bow_kind, "owner": owner}
+    if result["status"] == "duplicate":
+        return {"status": "fail", "message": "bow already exists"}
 
     print("Calling Metadata")
 
-    metadata_result = meta_store(**metadata)
+    metadata_result = meta_store(bow, content)
 
-    print(metadata_result)
+    if metadata_result["message"] != "success":
+        return JSONResponse(
+            {"status": "failed", "message": "failed to add to metadata"}
+        )
 
     response = {
         "status": "success",
         "bow_id": bow_id,
-        "maker": maker,
-        "bow_kind": bow_kind,
-        "owner": owner,
-        "embedding_dimension": len(embeddings),
         "message": f"{bow_id} stored successfully",
     }
 

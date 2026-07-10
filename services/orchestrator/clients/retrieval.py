@@ -5,8 +5,8 @@ RETRIEVAL_SEARCH_URL = "http://127.0.0.1:8004/search"
 RETRIEVAL_DELETE_URL = "http://127.0.0.1:8004/delete"
 
 
-def retrieval_store(bow_id: str, embedding: list[float]):
-    payload = {"bow_id": bow_id, "embedding": embedding}
+def retrieval_store(bow_id: str, embedding: list[float], threshold: float = 0.3):
+    payload = {"bow_id": bow_id, "embedding": embedding, "threshold": threshold}
 
     response = requests.post(RETRIEVAL_STORE_URL, json=payload)
 

@@ -5,6 +5,7 @@ from db.table_full import (
     create_meta_table,
     delete_all_rows,
     delete_row,
+    list_all_rows,
     search_row,
 )
 from psycopg2 import sql
@@ -115,3 +116,15 @@ class MetaDatabaseManager:
         conn.commit()
         cursor.close()
         conn.close()
+
+    def list_all(self):
+        conn_params = get_connection_string(config.DB_NAME)
+        conn = psycopg2.connect(**conn_params)
+        cursor = conn.cursor()
+
+        results = list_all_rows(cursor)
+
+        cursor.close()
+        conn.close()
+
+        return results

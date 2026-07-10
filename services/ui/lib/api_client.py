@@ -6,7 +6,6 @@ import requests
 from lib.schemas import Bow
 
 ORCHESTRATOR_URL = os.environ.get("ORCHESTRATOR_URL", "http://localhost:8001")
-TIMEOUT_S = 30
 
 
 def register(
@@ -25,14 +24,12 @@ def register(
     else:
         data.pop("materials", None)
 
-    r = requests.post(
-        f"{ORCHESTRATOR_URL}/register/",
-        files=files,
-        data=data,
-        timeout=TIMEOUT_S,
-    )
+    r = requests.post(f"{ORCHESTRATOR_URL}/register/", files=files, data=data)
 
     # will need handling
+
+    print(r.status_code)
+    print(r.text)
     r.raise_for_status()
 
     return r.json()
@@ -44,11 +41,7 @@ def verify(
 
     files = {"file": (filename, image_bytes, content_type)}
 
-    r = requests.post(
-        f"{ORCHESTRATOR_URL}/verify/",
-        files=files,
-        timeout=TIMEOUT_S,
-    )
+    r = requests.post(f"{ORCHESTRATOR_URL}/verify/", files=files)
 
     # will need handling
     r.raise_for_status()
