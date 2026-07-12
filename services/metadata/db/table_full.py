@@ -152,12 +152,12 @@ def delete_all_rows(cursor):
 def list_all_rows(cursor):
     try:
         cursor.execute("""
-            SELECT * FROM metadata
+            SELECT * FROM metadata ORDER BY registered_at DESC
         """)
         rows = cursor.fetchall()
         colnames = [desc[0] for desc in cursor.description]
 
-        results = []
+        results = [] 
         for row in rows:
             result = dict(zip(colnames, row))
             # Parse materials JSON if needed
@@ -166,7 +166,8 @@ def list_all_rows(cursor):
                 result["materials"] = json.loads(materials)
             results.append(result)
 
-        return results
+        return results # list of dicts, example: [{"id": "BOW-121E64", "maker_assigned_id": "uwbuvb20", ..., "created_at": "2026-07-09 12:13:17.162649+02", "images": [...]}]
     except psycopg2.Error as db_err:
         # Log or handle database errors
         raise RuntimeError(f"Database error: {db_err}") from db_err
+        
