@@ -4,6 +4,7 @@ from qdrant_client.models import (
     Distance,
     FieldCondition,
     Filter,
+    FilterSelector,
     MatchValue,
     PointStruct,
     VectorParams,
@@ -98,10 +99,19 @@ class QdrantManager:
             return top  # similar bow already exists
         return None  # safe to add
 
-    def delete(self, bow_id: str) -> None:
+    def delete(self, bow_id: str):
         self.client.delete(
             collection_name=self.collection_name,
-            points_selector=[self._bow_id_to_int(bow_id)],
+            points_selector=FilterSelector(
+                filter=Filter(
+                    must=[
+                        FieldCondition(
+                            key="bow_id",
+                            match=MatchValue(value=bow_id),
+                        )
+                    ]
+                )
+            ),
         )
 
     def delete_all(self) -> None:

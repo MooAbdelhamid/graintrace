@@ -64,6 +64,7 @@ def search_by_id(bow_id: str):
 
 @router.delete("/delete/{bow_id}")
 def delete(bow_id: str):
+    print("in delete")
     qdrant_manager.delete(bow_id)
     return {"bow_id": bow_id, "status": "deleted"}
 

@@ -1,11 +1,16 @@
 import json
+from io import BytesIO
 
 import requests
 from models.bow import Bow
+from PIL import Image
 
 META_STORE_URL = "http://127.0.0.1:8005/store"
 META_SEARCH_URL = "http://127.0.0.1:8005/search"
+META_IMAGE_URL = "http://127.0.0.1:8005/image/"
 META_DELETE_URL = "http://127.0.0.1:8005/delete"
+
+META_LIST_ALL_URL = "http://127.0.0.1:8005/list_all"
 
 
 def meta_store(
@@ -36,3 +41,30 @@ def meta_search(bow_id: str):
 
     response.raise_for_status()
     return response.json()
+
+
+def meta_delete(bow_id: str):
+    payload = {"bow_id": bow_id}
+
+    response = requests.delete(f"{META_DELETE_URL}/{bow_id}")
+
+    response.raise_for_status()
+    return response.json()
+
+
+def meta_count():
+    response = requests.get(META_LIST_ALL_URL)
+    response.raise_for_status()
+
+    data = response.json()
+    return len(data)
+
+
+def meta_image(bow_id: str):
+    URL = META_IMAGE_URL + bow_id
+
+    response = requests.get(URL)
+    response.raise_for_status()
+
+    image = Image.open(BytesIO(response.content))
+    return image

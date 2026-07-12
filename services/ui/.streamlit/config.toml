@@ -1,0 +1,5 @@
+[theme]
+primaryColor = "rgb(139, 69, 19)"        # SaddleBrown, warm wood tone
+backgroundColor = "#fce1ce"     # Cornsilk, light creamy background
+secondaryBackgroundColor = "#e4bfa4"  # Beige, soft neutral
+textColor = "#4B2E05"           # Dark brown text
