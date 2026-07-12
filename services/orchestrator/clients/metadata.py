@@ -60,6 +60,16 @@ def meta_count():
     return len(data)
 
 
+def meta_last():
+    response = requests.get(META_LIST_ALL_URL)
+    response.raise_for_status()
+
+    data = response.json()
+    date = data[0]["registered_at"]
+
+    return date
+
+
 def meta_image(bow_id: str):
     URL = META_IMAGE_URL + bow_id
 
