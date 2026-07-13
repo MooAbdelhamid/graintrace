@@ -12,26 +12,34 @@ if photo and st.button("Verify", type="primary"):
         st.success("Query processed")
 
         # Show API response
-        st.json(result)
+        with st.expander("View API response"):
+            st.json(result)
 
         matches = result.get("matches", [])
 
         if matches:
             st.subheader("Matching bows")
-
+            threshold = 0.54
+            cols = st.columns(3)
             # Get top 3 matches
-            for match in matches[:3]:
+            for col, match in zip(cols, matches[:3]):
                 bow_id = match["bow_id"]
+                score = match["score"]
 
-                st.write(f"Bow ID: {bow_id}")
-                st.write(f"Score: {match['score']}")
+                with col:
+                    st.write(f"Bow ID: {bow_id}")
+                    st.write(f"Score: {score}")
 
-                try:
-                    image_bytes = api_client.meta_image(bow_id)
-                    st.image(image_bytes, caption=bow_id, width=300)
+                    try:
+                        image_bytes = api_client.meta_image(bow_id)
+                        st.image(image_bytes, caption=bow_id, width=300)
+                        if score >= threshold:
+                            st.info("Above threshold — Unlikely Match")
+                        else:
+                            st.success("Below threshold — Potential Match")
 
-                except Exception as img_error:
-                    st.warning(f"Could not load image for {bow_id}: {img_error}")
+                    except Exception as img_error:
+                        st.warning(f"Could not load image for {bow_id}: {img_error}")
 
         else:
             st.info("No matching bows found")
