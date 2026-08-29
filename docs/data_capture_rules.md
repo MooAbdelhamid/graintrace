@@ -27,12 +27,7 @@ The system does NOT rely on full-object recognition, but instead on:
 ## 3.1 Required Image Set per Bow
 
 ### A. Primary ROI Views
-- head wood (left side)
-- head wood (right side)
-
-### B. Macro Texture Capture
-- Extreme close-up grain image (1–2 samples)
-
+- Bow Head (right face)
 
 ## 3.2 Capture Constraints
 
@@ -43,8 +38,7 @@ The system does NOT rely on full-object recognition, but instead on:
 
 ## 3.3 Capture Specifications
 
-- Minimum: 1600 × 1200 px
-- Recommended: 3000 × 2000 px or higher
+- Minimum: 12 Megapixel
 
 ---
 
@@ -67,18 +61,20 @@ The system does NOT rely on full-object recognition, but instead on:
 
 ---
 
-# 6. Data Structure (Per Bow)
+# 6. Data Collected (Per Bow)
 
-## 6.1 Structure 1
+## 6.1 Collection 1
 
-- head_left
-- head_right
-- macro_grain_closeup
+- head_front
+- head_tilt_up
+- head_tilt_down
 
-## 6.1 Structure 2
+## 6.1 Collection 2
 
-- head_left
-- head_right
+- head_front
+- head_tilt_up
+- head_tilt_down
+- random_views
 
 ---
 
@@ -87,7 +83,7 @@ The system does NOT rely on full-object recognition, but instead on:
 Each image must include:
 
 - bow_id
-- view_side (left/right/context)
+- head_orientation (front/tilt up/tilt down/random)
 
 ---
 
@@ -106,4 +102,3 @@ Reject capture if:
 This dataset is optimized for:
 - texture-based embedding learning
 - contrastive learning (same bow vs different bow)
-- multi-instance aggregation per bow **TBD**
